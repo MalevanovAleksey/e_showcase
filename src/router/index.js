@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AuthorizationView from "../views/AuthorizationView.vue";
-import ProductListCardViiew from "../views/ProductListCardViiew.vue";
+import ProductPageView from "../views/ProductPageView.vue";
 import CartView from "../views/CartView.vue";
 
 const routes = [
@@ -14,12 +14,12 @@ const routes = [
         path: "/funiro",
         name: "home",
         component: HomeView,
-        redirect: { name: "productListCardViiew" },
+        redirect: { name: "ProductPageView" },
         children: [
             {
-                path: "productListCardViiew",
-                name: "productListCardViiew",
-                component: ProductListCardViiew,
+                path: "ProductPageView",
+                name: "ProductPageView",
+                component: ProductPageView,
                 props: true,
             },
             {

@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <router-link class="link" :to="{ name: 'productListCardViiew' }">
+        <router-link class="link" :to="{ name: 'ProductPageView' }">
             <div class="header__title">
                 <Icon iconName="npm" :size="40" />
                 <div>Funiro.</div>
