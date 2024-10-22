@@ -1,5 +1,5 @@
 <template>
-    <button :class="['base-button', { 'is-active': isActive }]" @click="handleClick">
+    <button :class="['button', { 'is-active': isActive }]" @click="handleClick">
         <slot></slot>
     </button>
 </template>
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.base-button {
+.button {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;

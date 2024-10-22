@@ -1,6 +1,6 @@
 <template>
     <div class="input-wrapper">
-        <label>{{ label }}</label>
+        <label v-if="label">{{ label }}</label>
         <input :type="type" :value="modelValue" @input="updateValue" :placeholder="placeholder" class="input" />
     </div>
 </template>
@@ -14,7 +14,7 @@ export default {
         },
         label: {
             type: String,
-            required: true,
+            required: false,
         },
         type: {
             type: String,
@@ -35,9 +35,20 @@ export default {
 
 <style scoped>
 .input {
-    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
+}
+
+.input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-text-fill-color: black;
+}
+
+.input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-text-fill-color: black;
 }
 </style>
