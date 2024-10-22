@@ -15,7 +15,7 @@ export default {
     methods: {
         checkAccess() {
             if (_.isEmpty(this.currentUserProfile)) {
-                this.$router.replace({ name: "authorization" });
+                this.$router.replace({ name: "authorizationView" });
             }
         },
     },

@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <img alt="Vue logo" src="../assets/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js App" />
+        <Header />
+        <router-view />
     </div>
 </template>
 
@@ -16,3 +16,10 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+    padding: 40px 100px;
+    height: 100%;
+}
+</style>
