@@ -38,6 +38,12 @@ export default {
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
+    &:focus {
+        /* border: none; */
+        outline: none;
+        border-color: #1587df;
+        box-shadow: 0px 2px 6px 5px rgba(21, 135, 223, 0.2);
+    }
 }
 
 .input:-webkit-autofill {

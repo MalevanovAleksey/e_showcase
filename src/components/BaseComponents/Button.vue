@@ -44,6 +44,10 @@ export default {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
+
+    &.secondary {
+        background-color: #a9b4b9;
+    }
 }
 
 .base-button.is-active {

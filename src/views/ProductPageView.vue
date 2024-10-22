@@ -14,9 +14,9 @@
             </div>
         </div>
 
-        <div class="product-page-split-panel">
-            <Sidebar />
-            <ProductList />
+        <div class="product-page__split-panel">
+            <Sidebar class="product-page__sidebar" />
+            <ProductList class="product-page__product-list" />
         </div>
     </div>
 </template>
@@ -69,6 +69,19 @@ export default {
             align-items: center;
             padding: 0 20px;
         }
+    }
+
+    &__split-panel {
+        display: flex;
+    }
+
+    &__sidebar {
+        width: 20%;
+    }
+
+    &__product-list {
+        width: 80%;
+        background-color: #ccc;
     }
 }
 </style>
