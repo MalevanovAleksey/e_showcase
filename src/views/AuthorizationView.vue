@@ -42,6 +42,7 @@ export default {
             model: {
                 email: null,
                 password: null,
+                id: 5,
             },
             errors: {
                 email: null,
@@ -51,12 +52,20 @@ export default {
     },
     computed: {
         ...mapGetters(["currentUserProfile"]),
+        currentDate() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0"); // Месяцы начинаются с 0
+            const day = String(date.getDate()).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        },
     },
     mounted() {
         this.init();
     },
     methods: {
-        ...mapActions(["setCurrentUserProfile"]),
+        ...mapActions(["setCurrentUserProfile", "addCart"]),
         init() {
             if (!_.isEmpty(this.currentUserProfile)) {
                 this.$router.replace({ name: "home" });
@@ -66,6 +75,7 @@ export default {
             if (this.validateForm()) {
                 this.setCurrentUserProfile(this.model);
                 this.$router.replace({ name: "home" });
+                this.addUserCart();
             }
         },
         validateEmail(email) {
@@ -83,6 +93,15 @@ export default {
             this.errors.email = this.validateEmail(this.model.email);
             this.errors.password = this.validatePassword(this.model.password);
             return !this.errors.email && !this.errors.password;
+        },
+        addUserCart() {
+            const dto = {
+                userId: this.currentUserProfile.id,
+                date: this.currentDate,
+                products: [],
+            };
+
+            this.addCart(dto);
         },
     },
 };

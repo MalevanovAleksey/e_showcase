@@ -15,7 +15,7 @@ const productsService = {
         return apiClient.get("/products/categories");
     },
     getProductsInCategory(categoryName) {
-        return apiClient.get(`/products/categories/${categoryName}`);
+        return apiClient.get(`/products/category/${categoryName}`);
     },
 };
 

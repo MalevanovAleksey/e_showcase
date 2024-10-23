@@ -16,19 +16,20 @@
 
         <div class="product-page__split-panel">
             <Sidebar class="product-page__sidebar" />
-            <ProductList class="product-page__product-list" />
+            <ProductList :products="products" class="product-page__product-list" />
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     data() {
         return {};
     },
     computed: {
+        ...mapGetters(["currentUserProfile", "products"]),
         productListDescriptionItems() {
             return [
                 {
@@ -58,9 +59,11 @@ export default {
         this.init();
     },
     methods: {
-        ...mapActions(["fetchProducts"]),
+        ...mapActions(["fetchProducts", "fetchCart", "fetchCategories"]),
         init() {
             this.fetchProducts();
+            this.fetchCart(this.currentUserProfile.id);
+            this.fetchCategories();
         },
     },
 };

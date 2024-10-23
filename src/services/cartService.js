@@ -8,14 +8,14 @@ const apiClient = axios.create({
 });
 
 const cartService = {
-    getCart() {
-        return apiClient.get("/carts");
+    getCart(userId) {
+        return apiClient.get(`/carts/user/${userId}`);
     },
-    addCart(product) {
-        return apiClient.post("/carts", product);
+    addCart(dto) {
+        return apiClient.post("/carts", dto);
     },
-    updateCart(products) {
-        return apiClient.post("/carts", products);
+    updateCart(dto) {
+        return apiClient.post("/carts", dto);
     },
 };
 

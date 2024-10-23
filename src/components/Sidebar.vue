@@ -4,12 +4,11 @@
         <div class="sidebar-filter__wrapper">
             <div class="sidebar-filter__title">Категория</div>
             <div class="sidebar-filter__select">
-                <!-- <Select :options="options" /> -->
                 <v-select
                     :options="options"
-                    v-model="selectedOption"
+                    v-model="model.selectedOption"
                     label="label"
-                    placeholder="Все категории"
+                    placeholder="All categories"
                     :clearable="false"
                 />
             </div>
@@ -17,13 +16,13 @@
         <div class="sidebar-filter__wrapper">
             <div class="sidebar-filter__title">Цена</div>
             <div class="sidebar-filter__group-inputs">
-                <Input class="sidebar-filter__group-input" label="Мин. цена" />
-                <Input class="sidebar-filter__group-input" label="Макс. цена" />
+                <Input v-model="model.minPrice" type="number" class="sidebar-filter__group-input" label="Мин. цена" />
+                <Input v-model="model.maxPrice" type="number" class="sidebar-filter__group-input" label="Макс. цена" />
             </div>
         </div>
         <div class="sidebar-filter-btn__wrapper">
-            <Button class="sidebar-filter-btn__item secondary">Сбросить фильтр</Button>
-            <Button class="sidebar-filter-btn__item">Применить</Button>
+            <Button class="sidebar-filter-btn__item secondary" @click="resetFilter">Сбросить фильтр</Button>
+            <Button class="sidebar-filter-btn__item" @click="applyFilter">Применить</Button>
         </div>
     </div>
 </template>
@@ -31,37 +30,64 @@
 <script>
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
     components: { vSelect },
     data() {
         return {
-            selectedOption: null,
+            model: {},
         };
     },
     computed: {
+        ...mapGetters(["categories", "filterForProducts"]),
+
         options() {
-            return [
-                {
-                    value: "1 категория",
-                    label: "1 категория",
-                },
-                {
-                    value: "2 категория",
-                    label: "2 категория",
-                },
-                {
-                    value: "3 категория",
-                    label: "3 категория",
-                },
-            ];
+            const allCategoriesOption = { label: "All categories" };
+            const categoryOptions = this.categories.map((category) => {
+                return {
+                    label: category,
+                };
+            });
+            return [allCategoriesOption, ...categoryOptions];
         },
     },
+    mounted() {
+        this.model = _.cloneDeep(this.filterForProducts);
+    },
     methods: {
+        ...mapActions(["fetchProductsInCategory", "setFilter", "initFilter"]),
         updateValue(event) {
             this.$emit("update:modelValue", event.target.value);
         },
-        handleRemove() {
-            console.log("крестик");
+        applyFilter() {
+            this.isValidFilter();
+            this.setFilter(this.model);
+        },
+        resetFilter() {
+            this.initFilter();
+        },
+
+        isValidFilter() {
+            if (this.model.minPrice < 0) {
+                this.model.minPrice = null;
+            }
+            if (this.model.maxPrice < 0) {
+                this.model.maxPrice = null;
+            }
+
+            if (
+                this.model.minPrice != null &&
+                this.model.maxPrice != null &&
+                this.model.maxPrice < this.model.minPrice
+            ) {
+                [this.model.minPrice, this.model.maxPrice] = [this.model.maxPrice, this.model.minPrice];
+            }
+        },
+    },
+    watch: {
+        filterForProducts(val) {
+            this.model = _.cloneDeep(val);
         },
     },
 };
