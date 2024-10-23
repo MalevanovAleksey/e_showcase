@@ -1,23 +1,30 @@
 import { createStore } from "vuex";
-export const mutation = {
-    SET_CURRENT_USER_PROFILE: "SET_CURRENT_USER_PROFILE",
-};
-export default createStore({
+import products from "./modules/products";
+import cart from "./modules/cart";
+import appModule from "./modules/app";
+
+const store = createStore({
     state: {
-        currentUserProfile: null,
-    },
-    getters: {
-        currentUserProfile: (state) => state.currentUserProfile,
+        isLoading: false,
     },
     mutations: {
-        [mutation.SET_CURRENT_USER_PROFILE]: (state, value) => {
-            state.currentUserProfile = value;
+        SET_LOADING(state, value) {
+            state.isLoading = value;
         },
     },
     actions: {
-        setCurrentUserProfile({ commit, dispatch, getters }, value) {
-            commit(mutation.SET_CURRENT_USER_PROFILE, value);
+        setLoading({ commit }, value) {
+            commit("SET_LOADING", value);
         },
     },
-    modules: {},
+    getters: {
+        isLoading: (state) => state.isLoading,
+    },
+    modules: {
+        products,
+        cart,
+        appModule,
+    },
 });
+
+export default store;

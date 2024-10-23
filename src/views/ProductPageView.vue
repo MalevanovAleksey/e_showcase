@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
     data() {
         return {};
@@ -52,8 +54,15 @@ export default {
             ];
         },
     },
-    mounted() {},
-    methods: {},
+    mounted() {
+        this.init();
+    },
+    methods: {
+        ...mapActions(["fetchProducts"]),
+        init() {
+            this.fetchProducts();
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>

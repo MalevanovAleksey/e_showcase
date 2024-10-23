@@ -1,5 +1,22 @@
 <template>
     <router-view />
+    <loader
+        v-if="isLoading"
+        name="spinning"
+        loadingText="LOADING..."
+        textColor="#ffffff"
+        textSize="20"
+        textWeight="500"
+        object="#ff9633"
+        color1="#ffffff"
+        color2="#17fd3d"
+        size="5"
+        speed="2"
+        bg="#343a40"
+        objectbg="#999793"
+        opacity="80"
+        :disableScrolling="true"
+    ></loader>
 </template>
 
 <script>
@@ -7,7 +24,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters(["currentUserProfile"]),
+        ...mapGetters(["currentUserProfile", "isLoading"]),
     },
     mounted() {
         this.checkAccess();
