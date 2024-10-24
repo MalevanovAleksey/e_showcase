@@ -1,5 +1,9 @@
 <template>
-    <button :class="['button', { 'is-active': isActive }]" @click="handleClick">
+    <button
+        :disabled="disabled"
+        :class="['button', { 'is-active': isActive }, { disabled: disabled }]"
+        @click="handleClick"
+    >
         <slot></slot>
     </button>
 </template>
@@ -14,6 +18,10 @@ export default {
         label: {
             type: String,
             default: "",
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -47,6 +55,10 @@ export default {
 
     &.secondary {
         background-color: #a9b4b9;
+    }
+
+    &.disabled {
+        background-color: #ccc;
     }
 }
 

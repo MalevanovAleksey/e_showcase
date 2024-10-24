@@ -88,12 +88,40 @@ export default {
     }
 
     &__sidebar {
-        width: 20%;
+        width: 200px;
     }
 
     &__product-list {
         width: 80%;
-        background-color: #ccc;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-page {
+        &__split-panel {
+            flex-direction: column;
+        }
+
+        &__sidebar {
+            width: 100%;
+        }
+
+        &__product-list {
+            width: 100%;
+        }
+
+        &-description {
+            &__wrapper {
+                padding: 15px 0;
+                flex-wrap: wrap;
+            }
+            &__lables {
+                display: none;
+            }
+            &__item {
+                padding: 0 10px;
+            }
+        }
     }
 }
 </style>

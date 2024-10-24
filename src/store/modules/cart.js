@@ -1,6 +1,9 @@
 import { Api } from "../../services/api";
+import { cartActionValue } from "@/enums/cart";
+
 export const mutation = {
     SET_CART: "SET_CART",
+    UPDATE_CART_ITEM: "UPDATE_CART_ITEM",
 };
 
 const cartModule = {
@@ -40,12 +43,24 @@ const cartModule = {
                     dispatch("setLoading", false, { root: true });
                 });
         },
-        updateCart({ commit, dispatch }, dto) {
+        updateCart({ commit, dispatch, getters }, { product, action }) {
             dispatch("setLoading", true, { root: true });
+            const cart = { ...getters.cart };
+            const productIndex = _.findIndex(cart.products, { id: product.id });
+
+            if (action === cartActionValue.ADD) {
+                productIndex !== -1
+                    ? (cart.products[productIndex].quantity += 1)
+                    : cart.products.push({ ...product, quantity: 1 });
+            } else if (action === cartActionValue.REMOVE && productIndex !== -1) {
+                cart.products[productIndex].quantity > 1
+                    ? (cart.products[productIndex].quantity -= 1)
+                    : cart.products.splice(productIndex, 1);
+            }
             Api.cart
-                .updateCart(dto)
+                .updateCart(cart)
                 .then(({ data }) => {
-                    commit("SET_CART", data);
+                    commit("SET_CART", cart);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -56,7 +71,8 @@ const cartModule = {
         },
     },
     getters: {
-        allCartItems: (state) => state.cart,
+        cart: (state) => state.cart,
+        productsOnCart: (state) => state.cart.products,
     },
 };
 

@@ -16,8 +16,8 @@
         <div class="sidebar-filter__wrapper">
             <div class="sidebar-filter__title">Цена</div>
             <div class="sidebar-filter__group-inputs">
-                <Input v-model="model.minPrice" type="number" class="sidebar-filter__group-input" label="Мин. цена" />
-                <Input v-model="model.maxPrice" type="number" class="sidebar-filter__group-input" label="Макс. цена" />
+                <Input v-model="model.minPrice" type="number" class="sidebar-filter__group-input" label="min. price" />
+                <Input v-model="model.maxPrice" type="number" class="sidebar-filter__group-input" label="max. price" />
             </div>
         </div>
         <div class="sidebar-filter-btn__wrapper">
@@ -124,6 +124,12 @@ export default {
                 border-radius: 5px;
                 width: calc(100% - 15px);
                 padding: 5px;
+
+                &-wrapper {
+                    label {
+                        font-size: 12px;
+                    }
+                }
             }
         }
 
