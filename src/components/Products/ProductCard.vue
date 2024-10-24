@@ -29,7 +29,7 @@ export default {
     computed: {
         ...mapGetters(["productsOnCart"]),
         productPrice() {
-            return `${this.product.price} $`;
+            return `${this.product.price} ₽`;
         },
         productTitle() {
             return this.product.title;

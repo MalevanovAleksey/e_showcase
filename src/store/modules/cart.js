@@ -8,7 +8,12 @@ export const mutation = {
 
 const cartModule = {
     state: {
-        cart: [],
+        cart: {
+            date: null,
+            id: null,
+            products: [],
+            userId: null,
+        },
     },
     mutations: {
         [mutation.SET_CART]: (state, value) => {
@@ -68,6 +73,11 @@ const cartModule = {
                 .finally(() => {
                     dispatch("setLoading", false, { root: true });
                 });
+        },
+        initProductsOnCart({ commit, dispatch, getters }) {
+            const cart = { ...getters.cart };
+            cart.products = [];
+            commit(mutation.SET_CART, cart);
         },
     },
     getters: {
