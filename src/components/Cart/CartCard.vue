@@ -10,7 +10,7 @@
             <CartTable :productsOnCart="productsOnCart" />
             <div class="cart-card__content">
                 <div class="cart-card__content-label">{{ sumLabel }}</div>
-                <Button @click="placeAnOrder">Оформить заказ</Button>
+                <Button @click="openModal">Оформить заказ</Button>
             </div>
         </div>
         <Modal
@@ -65,15 +65,13 @@ export default {
         goToBack() {
             this.$router.push({ name: "ProductPageView" });
         },
-        placeAnOrder() {
-            this.initProductsOnCart();
-            this.openModal();
-        },
         openModal() {
             this.isModalVisible = true;
         },
         closeModal() {
             this.isModalVisible = false;
+            this.initProductsOnCart();
+            this.goToBack();
         },
     },
 };
